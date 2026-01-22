@@ -62,12 +62,12 @@ const App = () => {
                   transactions={transactions}
                   categories={categories}
                 />
-                }
+              }
             />
-            <Route path='/summary' element={<MonthlySummary />} />
+            <Route path="/summary" element={<MonthlySummary />} />
             <Route
               path="/transactions/:transactionId"
-              element={<TransactionDetails />}
+              element={<TransactionDetails categories={categories} />}
             />
           </>
         ) : (
