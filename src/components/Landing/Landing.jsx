@@ -36,7 +36,7 @@ const Landing = () => {
       <main className="landing-container">
         <section className="landing-left">
           <div className="landing-app-details">
-            <h1>Track your money. Build better habits.</h1>
+            <h1>Track your money. <br />  Build better habits.</h1>
             <h2>A simple way to track income, expenses, and savings while earning points and motivation.</h2>
             <h3>Add transactions in seconds.</h3>
             <h3>See monthly totals at a glance.</h3>
