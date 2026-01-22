@@ -1,7 +1,7 @@
 // App.jsx
 import "./App.css";
 import { useContext, useState, useEffect } from "react";
-import { Routes, Route } from "react-router";
+import { Routes, Route, useNavigate } from "react-router";
 
 import NavBar from "./components/NavBar/Navbar.jsx";
 import SignUpForm from "./components/SignUpForm/SignUpForm.jsx";
@@ -24,7 +24,26 @@ const App = () => {
 
   // Needed for TransactionList
   const [categories, setCategories] = useState([]);
+  const navigate = useNavigate();
   const [transactions, setTransactions] = useState([]);
+
+  const handleUpdateTransaction = async (
+    transactionId,
+    transactionFormData
+  ) => {
+    const updatedTransaction = await transactionService.update(
+      transactionId,
+      transactionFormData
+    );
+
+    setTransactions(
+      transactions.map((t) =>
+        t._id === transactionId ? updatedTransaction : t
+      )
+    );
+
+    navigate(`/transactions/${transactionId}`);
+  };
 
   useEffect(() => {
     const fetchAllCategories = async () => {
@@ -72,7 +91,12 @@ const App = () => {
             />
             <Route
               path="/transactions/:transactionId/edit"
-              element={<TransactionForm categories={categories} />}
+              element={
+                <TransactionForm
+                  categories={categories}
+                  handleUpdateTransaction={handleUpdateTransaction}
+                />
+              }
             />
           </>
         ) : (

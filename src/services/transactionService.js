@@ -57,4 +57,21 @@ const show = async (transactionId) => {
   }
 };
 
-export { index, getRecent, getMonthlySummary, show };
+// PUT /transactions/:id -- update one transaction
+const update = async (transactionId, transactionFormData) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${transactionId}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(transactionFormData),
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { index, getRecent, getMonthlySummary, show, update };
