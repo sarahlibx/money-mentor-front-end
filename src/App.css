@@ -136,3 +136,18 @@ body, html {
 .testimonials-container:hover .ticker-track {
     animation-play-state: paused;
 }
+
+/* classes for dashboard */
+.main-content-container {
+  max-width: 1000px; 
+  margin: 0 auto;    
+  padding: 20px;
+}
+
+.transactions-list {
+  list-style: none;
+}
+.transactions-chart {
+  margin: 40px auto;
+  max-width: 800px; 
+}

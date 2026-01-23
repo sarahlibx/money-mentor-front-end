@@ -86,7 +86,7 @@ const MonthlySummary = () => {
 
     return (
         <>
-            <main>
+            <main className="main-content-container">
                 <h1>Monthly Summary</h1>
                 <section className="filter-transactions">
                     <div className="filter-btns">
@@ -97,13 +97,19 @@ const MonthlySummary = () => {
                 
                 <h3>Total: ${total.toFixed(2)}</h3>
 
-                <ul>
+                <ul className="transactions-list">
                     {filteredTransactions.map(transaction => {
                         const isIncome = transaction.categoryId?.type === 'Income';
                         const symbol = isIncome ? '+' : '-';
 
                         return (
-                      <li key={transaction._id}>
+                      <li key={transaction._id} className="transaction-card">
+                        <div className="transaction-info">
+                            <div className="transaction-icon">
+                                {isIncome ? '💰' : '💸'}
+                            </div>
+                        </div>
+                        <div className="transaction-details"></div>
                         {/* date */}
                         {new Date(transaction.date).toLocaleDateString()} |
                         {/* description & type */}
