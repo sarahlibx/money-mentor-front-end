@@ -81,14 +81,16 @@ const Dashboard = () => {
                 <h2>Here are your recent money moves.</h2>
                 <ul className='transactions-list'>
                     {recentMoves.map((transaction) => {
-                        const isIncome = allTransactions.categoryId?.type === 'Income';
-                        const symbol = isIncome ? '+' : '-';
+                        const isIncomeItem = transaction.categoryId?.type === 'Income';
+                        const symbol = isIncomeItem ? '+' : '-';
 
                         return (
                         <Link to={`/transactions/${transaction._id}`} key={transaction._id} className="transaction-link">
                         <li key={transaction._id}>
                             {transaction.description}: {' '}
-                            {symbol}{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(transaction.amount)} 
+                            <div className={`transaction-amount ${isIncomeItem ? 'amount-income' : 'amount-expense'}`}>
+                                {symbol}{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(transaction.amount)}
+                            </div>
                         </li>
                         </Link>
                     );
