@@ -70,7 +70,36 @@ const monthlyData = allTransactions.filter((transactions) =>
         <p>Loading your dashboard...</p>
       </main>
     );
-
+     return (
+        <main className='main-content-container'>
+            <>
+            <h1>Welcome to your dashboard, {user.username}!</h1>
+            {/* monthly stats at a glance */}
+            <section className='monthly-stats-section'>
+                <div className='stats-header'>
+                    <select className='month-dropdown' value={selectedMonth} onChange={handleMonthChange}>
+                        <option value="2026-01">January 2026</option>
+                        <option value="2025-12">December 2025</option>
+                    </select>
+                </div>
+                <div className='stats-grid'>
+                    <div className="stat-item">
+                        <span className="label">Points</span>
+                        <span className="value points">{user.points}</span>
+                    </div>
+                    <div className='stat-item'>
+                        <span className='label'>Income</span>
+                        <span className='value income'>${income.toFixed(2)}</span>
+                    </div>
+                    <div className='stat-item'>
+                        <span className='label'>Expenses</span>
+                        <span className='value expense'>${expenses.toFixed(2)}</span>
+                    </div>
+                    <div className='stat-item'>
+                        <span className='label'>Net Savings</span>
+                        <span className={`value ${net >= 0 ? 'net-positive' : 'net-negative'}`}>${net.toFixed(2)}</span>
+                    </div>
+                </div>
             </section>
             {/* recent activity */}
             <section className='recent-activity-section'>
