@@ -17,7 +17,7 @@ const NavBar = () => {
           <div className="nav-left">
             <Link to="/">
               <img
-                src="src/assets/favicon-512.png"
+                src="src/assets/Money Mentor (3) 1.svg"
                 alt="money-mentor-logo"
                 className="nav-logo"
               />
@@ -39,7 +39,7 @@ const NavBar = () => {
                 <Link to="/summary">Monthly Summary</Link>
               </li>
               <li>
-                <button onClick={handleSignOut} className="signout-btn">
+                <button type='button' onClick={handleSignOut} className="signout-btn">
                   Sign Out
                 </button>
               </li>
