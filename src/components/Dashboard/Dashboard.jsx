@@ -71,86 +71,40 @@ const monthlyData = allTransactions.filter((transactions) =>
       </main>
     );
 
-  return (
-    <main className="main-content-container">
-      <>
-        <h1>Welcome, {user.username}!</h1>
-        {/* monthly stats at a glance */}
-        <section className="monthly-stats-section">
-          <div className="stats-header">
-            <select
-              className="month-dropdown"
-              value={selectedMonth}
-              onChange={handleMonthChange}
-            >
-              <option value="2026-01">January 2026</option>
-              <option value="2025-12">December 2025</option>
-            </select>
-          </div>
-          <div className="stats-grid">
-            <div className="stat-item">
-              <span className="label">Income</span>
-              <span className="value income">${income.toFixed(2)}</span>
-            </div>
-            <div className="stat-item">
-              <span className="label">Points</span>
-              <span className="value points">{user.points}</span>
-            </div>
-            {/* <div className="stat-item">
-              <span className="label">Badge</span>
-              <span className="value points">{user.points}</span>
-            </div> */}
-            <div className="stat-item">
-              <span className="label">Expenses</span>
-              <span className="value expense">${expenses.toFixed(2)}</span>
-            </div>
-            <div className="stat-item">
-              <span className="label">Net Savings</span>
-              <span
-                className={`value ${net >= 0 ? "net-positive" : "net-negative"}`}
-              >
-                ${net.toFixed(2)}
-              </span>
-            </div>
-          </div>
-        </section>
-        {/* recent activity */}
-        <section className="recent-activity-section">
-          <h2>Here are your recent money moves.</h2>
-          <ul className="transactions-list">
-            {recentMoves.map((transaction) => {
-              const isIncome = allTransactions.categoryId?.type === "Income";
-              const symbol = isIncome ? "+" : "-";
+            </section>
+            {/* recent activity */}
+            <section className='recent-activity-section'>
+                <h2>Here are your recent money moves.</h2>
+                <ul className='dashboard-transactions-list'>
+                    {recentMoves.map((transaction) => {
+                        const isIncomeItem = transaction.categoryId?.type === 'Income';
+                        const symbol = isIncomeItem ? '+' : '-';
 
-              return (
-                <Link
-                  to={`/transactions/${transaction._id}`}
-                  key={transaction._id}
-                  className="transaction-link"
-                >
-                  <li key={transaction._id}>
-                    {transaction.description}: {symbol}
-                    {new Intl.NumberFormat("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    }).format(transaction.amount)}
-                  </li>
-                </Link>
-              );
-            })}
-          </ul>
-          <div className="transactions-actions">
-            <Link to="/transactions">
-              <button>View All Transactions</button>
-            </Link>
-            <Link to="/transactions/new">
-              <button type="button">+ Add Transaction</button>
-            </Link>
-          </div>
-        </section>
-      </>
-    </main>
-  );
+                        return (
+                        <Link to={`/transactions/${transaction._id}`} key={transaction._id} className="transaction-link">
+                        <li className='transaction-line'key={transaction._id}>
+                            {transaction.description}: {' '}
+                            <div className={`transaction-amount ${isIncomeItem ? 'amount-income' : 'amount-expense'}`}>
+                                {symbol}{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(transaction.amount)}
+                            </div>
+                        </li>
+                        </Link>
+                    );
+                    
+                })}
+                </ul>
+                <div className="transactions-actions">
+                    <Link to ='/transactions'>
+                        <button type='button'>View All Transactions</button>
+                    </Link>
+                    <Link to="/transactions/new">
+                        <button type="button">+ Add Transaction</button>
+                    </Link>
+                </div>
+            </section>
+            </>
+        </main>
+    );
 };
 
 export default Dashboard;

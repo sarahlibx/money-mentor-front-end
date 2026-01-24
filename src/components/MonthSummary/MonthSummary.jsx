@@ -36,7 +36,8 @@ const MonthlySummary = () => {
         const chartContainer = document.querySelector('.transactions-chart');
         if (chartContainer) observer.observe(chartContainer);
 
-        return () => observer.disconnect;
+        return () => { observer.disconnect();
+        };
     }, [loading, allTransactions]);
 
     // handle data loading
@@ -118,7 +119,7 @@ const MonthlySummary = () => {
                             </div>
                         </div>
                         {/* amount */}
-                        <div className={`transaction-amount ${isIncome} ? 'amount-income' : 'amount-expense'}`}>
+                        <div className={`transaction-amount ${isIncome ? 'amount-income' : 'amount-expense'}`}>
                             {isIncome ? '+' : '-'}${transaction.amount.toFixed(2)}
                         </div>
                       </li> 
@@ -127,12 +128,16 @@ const MonthlySummary = () => {
                 </ul>
                 </section>
                 {/* chart section */}
-                <section className="transactions-chart" style={{ width: '100%', height: '300px', marginBottom:'60px' }}>
+                <section className="transactions-chart">
                     <h2>{filter === 'all' ? 'Income vs Expenses' : `${filter} Breakdown`}</h2>
+                    <div style={{ width: '100%', height: '350px', marginBottom: '60px'}}>
                     {/* Only render the chart if mounted and we have data */}
                     {containerWidth > 0 && ( 
                     <ResponsiveContainer width='100%' height='100%' minWidth={0}> 
-                        <BarChart data={filter === 'all' ? chartData : dynamicChartData} margin={{ top: 20, right: 30, left: 20, bottom: 5}}>
+                        <BarChart 
+                            data={filter === 'all' ? chartData : dynamicChartData} 
+                            margin={{ top: 20, right: 30, left: 20, bottom: 5}}
+                        >
                             <CartesianGrid strokeDasharray='3 3' vertical={false} />
                             <XAxis dataKey='name' />
                             <YAxis tickFormatter={(value) => `$${value}`} />
@@ -145,6 +150,7 @@ const MonthlySummary = () => {
                         </BarChart>
                     </ResponsiveContainer>
                     )}
+                    </div>
                 </section>
                 <Link to="/">
                     <button type='button'>Return to Dashboard</button>
