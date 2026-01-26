@@ -39,6 +39,9 @@ const NavBar = () => {
                 <Link to="/summary">Monthly Summary</Link>
               </li>
               <li>
+                <Link to="/mentors">Profile</Link>
+              </li>
+              <li>
                 <button type='button' onClick={handleSignOut} className="signout-btn">
                   Sign Out
                 </button>
