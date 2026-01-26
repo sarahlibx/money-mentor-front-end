@@ -9,12 +9,13 @@ const Footer = () => {
                     <p>Smart tracking for smarter savings.</p>
                 </div>
                 <div className='footer-links'>
+                    <a href="https://github.com/angelikakasia/money-mentor-front-end" target="_blank">GitHub</a>
                     <a href="/about">About</a>
                     <a href="/privacy">Privacy</a>
                     <a href="/contact">Support</a>
                 </div>
                 <div className='footer-bottom'>
-                    <p>&copy {currentYear} Money Mentor. All rights reserved.</p>
+                    <p>&copy; {currentYear} Money Mentor. All rights reserved.</p>
                     <p>Made with 💚 by Gabriel, Angelika & Sarah.</p>
                 </div>
             </div>
