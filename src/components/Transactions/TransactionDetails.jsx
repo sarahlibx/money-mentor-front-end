@@ -1,4 +1,4 @@
-import { useParams, Link, useNavigate } from "react-router";
+import { useParams, Link, useNavigate, useLocation } from "react-router";
 import { useEffect, useState } from "react";
 import * as transactionService from "../../services/transactionService";
 
@@ -6,6 +6,9 @@ const TransactionDetails = ({ categories, handleDeleteTransaction }) => {
   const navigate = useNavigate();
   const { transactionId } = useParams();
   const [transaction, setTransaction] = useState(null);
+
+  const location = useLocation();
+  const from = location.state?.from || "/transactions";
 
   useEffect(() => {
     const fetchTransaction = async () => {
@@ -42,8 +45,14 @@ const TransactionDetails = ({ categories, handleDeleteTransaction }) => {
       <p>Note: {transaction.note || "No note"}</p>
 
       <section>
-        <Link to={`/transactions/${transactionId}/edit`}>Edit</Link>{" "}
+        <Link
+          to={`/transactions/${transactionId}/edit`}
+          state={{ from: location.pathname + location.search }}
+        >
+          Edit
+        </Link>{" "}
         <button
+          type="button"
           onClick={() => {
             if (window.confirm("Delete this transaction?")) {
               handleDeleteTransaction(transactionId);
@@ -52,7 +61,9 @@ const TransactionDetails = ({ categories, handleDeleteTransaction }) => {
         >
           Delete
         </button>
-        <button onClick={() => navigate(-1)}>Back</button>
+        <button type="button" onClick={() => navigate(from)}>
+          Back
+        </button>
       </section>
     </main>
   );

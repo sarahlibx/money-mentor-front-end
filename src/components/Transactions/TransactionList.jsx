@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./TransactionList.css";
 
 const TransactionList = ({ transactions, categories }) => {
+  const location = useLocation();
   const categoryNameById = (categoryId) => {
     if (categoryId && typeof categoryId === "object") return categoryId.name;
     const found = categories.find((c) => c._id === categoryId);
@@ -13,7 +14,10 @@ const TransactionList = ({ transactions, categories }) => {
       <h1>Transactions</h1>
 
       <div className="transactions-actions">
-        <Link to="/transactions/new">
+        <Link
+          to="/transactions/new"
+          state={{ from: location.pathname + location.search }}
+        >
           <button type="button">+ Add Transaction</button>
         </Link>
       </div>
@@ -25,6 +29,7 @@ const TransactionList = ({ transactions, categories }) => {
           <Link
             key={t._id}
             to={`/transactions/${t._id}`}
+            state={{ from: location.pathname + location.search }}
             className="transaction-link"
           >
             <article className="transaction-card">

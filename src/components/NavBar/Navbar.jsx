@@ -1,9 +1,10 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
+  const location = useLocation();
 
   const handleSignOut = () => {
     localStorage.removeItem("token");
@@ -15,7 +16,7 @@ const NavBar = () => {
       {user ? (
         <>
           <div className="nav-left">
-            <Link to="/">
+            <Link to="/" state={{ from: location.pathname + location.search }}>
               <img
                 src="src/assets/Money Mentor (3) 1.svg"
                 alt="money-mentor-logo"
@@ -33,7 +34,12 @@ const NavBar = () => {
                 <Link to="/transactions">Transactions</Link>
               </li>
               <li>
-                <Link to="/transactions/new">New Transaction</Link>
+                <Link
+                  to="/transactions/new"
+                  state={{ from: location.pathname + location.search }}
+                >
+                  New Transaction
+                </Link>
               </li>
               <li>
                 <Link to="/summary">Monthly Summary</Link>
@@ -42,7 +48,11 @@ const NavBar = () => {
                 <Link to="/mentors">Profile</Link>
               </li>
               <li>
-                <button type='button' onClick={handleSignOut} className="signout-btn">
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  className="signout-btn"
+                >
                   Sign Out
                 </button>
               </li>

@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router";
+import { useParams, useNavigate, useLocation } from "react-router";
 import { useEffect, useState } from "react";
 import * as transactionService from "../../services/transactionService";
 
@@ -9,6 +9,9 @@ const TransactionForm = ({
 }) => {
   const { transactionId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from || "/transactions";
 
   const [formData, setFormData] = useState({
     amount: "",
@@ -155,14 +158,7 @@ const TransactionForm = ({
           onChange={handleChange}
         />
         <button type="submit">Save</button>
-        <button
-          type="button"
-          onClick={() =>
-            transactionId
-              ? navigate(`/transactions/${transactionId}`)
-              : navigate("/transactions")
-          }
-        >
+        <button type="button" onClick={() => navigate(from)}>
           Cancel
         </button>
       </form>
