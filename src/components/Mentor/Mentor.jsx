@@ -13,22 +13,33 @@ const Mentor = ({ mentors }) => {
     fetchUserData();
   }, []);
 
-  if (!mentors) return <h1>Loading</h1>;
-//   const getLevelFromPoints = () => {
-//   if (user.points >= 5000) return { level: 5, name: "Money Mentor" };
-//   if (user.points >= 3000) return { level: 4, name: "Strategist" };
-//   if (user.points >= 1500) return { level: 3, name: "Builder" };
-//   if (user.points >= 400) return { level: 2, name: "Saver" };
-//   return { level: 1, name: "Beginner" };
-// };
+  if (!mentors || !user) return <h1>Loading</h1>;
+
+  
+  const pointsToNextLevel = () =>{
+    //   const currentPoints = user?.points ?? 0;
+    
+      let nextLevelAt = null;
+    
+      if (user?.points  < 400) nextLevelAt = 400;
+      else if (user?.points < 1500) nextLevelAt = 1500;
+      else if (user?.points < 3000) nextLevelAt = 3000;
+      else if (user?.points < 5000) nextLevelAt = 5000;
+
+      return nextLevelAt !== null ? nextLevelAt - user?.points : null;
+  }
+
   return (
     <main className="mentor-container">
       {/* Header */}
       <div className="mentor-header">
         <h1>Hello,{user.username}</h1>
-        <p className="mentor-level">Level {mentors.level}</p>
         <p className="mentor-level-name">{mentors.levelName}</p>
+        <p className="mentor-level">Level {mentors.level}</p>
         <p className="mentor-points">Points: {user.points}</p>
+        <p className="mentor-next-level">
+        {`${pointsToNextLevel()} points left to next level`}
+        </p>
       </div>
 
       {/* Mentor message */}
