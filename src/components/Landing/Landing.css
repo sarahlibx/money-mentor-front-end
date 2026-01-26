@@ -1,0 +1,73 @@
+/* classes for landing page */
+.landing-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.landing-left {
+  flex: 1;
+}
+
+.money-mentor-img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.landing-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.landing-hero-img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.testimonials-container {
+    width: 80%;
+    max-width: 1000px;
+    margin: 40px auto;
+    overflow: hidden; 
+    position: relative;
+    padding: 10px 0;
+    white-space: nowrap;
+    border-radius: 50px;
+}
+
+.testimonials-ticker-track {
+    display: flex;
+    width: max-content;
+    white-space: nowrap;
+    animation: marquee 30s linear infinite; 
+}
+
+.testimonials-review-item {
+    display: inline-block;
+    padding: 0 40px;
+    font-size: 0.9rem;
+    color: #636977;
+    font-style: italic;
+}
+
+/* This creates the infinite movement */
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+/* Pause the scroll when a user hovers over a review */
+.testimonials-container:hover .testimonials-ticker-track {
+    animation-play-state: paused;
+}

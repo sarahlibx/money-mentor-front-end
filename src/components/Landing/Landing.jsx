@@ -1,4 +1,4 @@
-import "../../App.css"; 
+import "./Landing.css"; 
 import { Link } from "react-router-dom";
 import NavBar from "../NavBar/Navbar";
 
@@ -12,13 +12,13 @@ const reviews = [
 const ReviewTicker = () => {
   return (
     <div className="testimonials-container">
-      <div className="ticker-track">
+      <div className="testimonials-ticker-track">
         {/* Render the list twice for the infinite loop effect */}
         {reviews.map((review, index) => (
-          <span key={`first-${index}`} className="review-item">{review}</span>
+          <span key={`first-${index}`} className="testimonials-review-item">{review}</span>
         ))}
         {reviews.map((review, index) => (
-          <span key={`dup-${index}`} className="review-item">{review}</span>
+          <span key={`dup-${index}`} className="testimonials-review-item">{review}</span>
         ))}
       </div>
     </div>

@@ -1,3 +1,4 @@
+import './Dashboard.css';
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
@@ -9,38 +10,55 @@ const Dashboard = () => {
   const { user, setUser } = useContext(UserContext);
   const currentMonth = new Date().toISOString().slice(0, 7);
   // state
-  const [selectedMonth, setSelectedMonth] = useState(currentMonth);
+  const [selectedMonth, setSelectedMonth] = useState(new Date().toISOString().slice(0, 7));
   const [allTransactions, setAllTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // fetch all data on mount
   useEffect(() => {
     const fetchDashboardData = async () => {
-      try {
-        // const updatedUser = await userService.index(user._id)
-        const transData = await transactionService.index();
-        setAllTransactions(transData || []);
-        setLoading(false);
+      if (!user?._id) {
+      setLoading(false);
+      return;
+    }
 
+      try {
+        setLoading(true);
+        
+        const [transData, updatedUser] = await Promise.all([
+            transactionService.index(),
+            userService.index(user._id)
+        ]);
+
+        setAllTransactions(transData || []);
+        if (updatedUser) setUser(updatedUser);
+        
         // debugging () in each transaction
         console.log("RECENT DATA ARRIVED:", transData);
       } catch (err) {
         console.log(err);
+      } finally {
         setLoading(false);
       }};
 
-      
-      if (user) fetchDashboardData();
-    }, [user]);
-    useEffect(() => {
-        const fetchUserData = async () => {
-            const updatedUser = await userService.index(user._id);
-            setUser(updatedUser);
-        };
-        fetchUserData()
-    } ,[]
-);
+        fetchDashboardData();
+  }, [user?._id]);
 
+const generateMonthOptions = () => {
+    const options = [];
+    const date = new Date();
+
+    // always calculates next 12 months
+    for(let i = 0; i < 12; i++) {
+        const monthValue = date.toISOString().slice(0, 7);
+        const monthLabel = date.toLocaleString('default', { month: 'long', year: 'numeric'});
+
+        options.push({ value: monthValue, label: monthLabel });
+
+        date.setMonth(date.getMonth() - 1);
+    }
+    return options;
+};
 
 const monthlyData = allTransactions.filter((transactions) =>
     transactions.date.startsWith(selectedMonth),
@@ -60,26 +78,27 @@ const monthlyData = allTransactions.filter((transactions) =>
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 5);
 
-  const handleMonthChange = (e) => {
-    setSelectedMonth(e.target.value);
-  };
-
-  if (loading)
-    return (
-      <main className="main-content-container">
-        <p>Loading your dashboard...</p>
-      </main>
-    );
+    if (loading) {
+  return (
+    <main className='dash-content-container'>
+      <p>Loading your dashboard...</p>
+    </main>
+  );
+}
      return (
-        <main className='main-content-container'>
+        <main className='dash-content-container'>
             <>
             <h1>Welcome to your dashboard, {user.username}!</h1>
             {/* monthly stats at a glance */}
             <section className='monthly-stats-section'>
                 <div className='stats-header'>
-                    <select className='month-dropdown' value={selectedMonth} onChange={handleMonthChange}>
-                        <option value="2026-01">January 2026</option>
-                        <option value="2025-12">December 2025</option>
+                    <select id='month-dropdown' className='month-dropdown' value={selectedMonth} onChange={(e) => setSelectedMonth(e.target.value)}
+                        >
+                            {generateMonthOptions().map((opt) => (
+                                <option key={opt.value} value={opt.value}>
+                                    {opt.label}
+                                </option>
+                            ))}
                     </select>
                 </div>
                 <div className='stats-grid'>
@@ -122,9 +141,9 @@ const monthlyData = allTransactions.filter((transactions) =>
                     
                 })}
                 </ul>
-                <div className="transactions-actions">
+                <div className="dash-transactions-actions">
                     <Link to ='/transactions'>
-                        <button type='button'>View All Transactions</button>
+                        <button type='button'>All Transactions</button>
                     </Link>
                     <Link to="/transactions/new">
                         <button type="button">+ Add Transaction</button>
