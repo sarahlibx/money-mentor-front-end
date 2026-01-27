@@ -18,13 +18,13 @@ const Mentor = ({ mentors }) => {
 
   
   const pointsToNextLevel = () =>{
-      const currentPoints = user?.points || 0;
-      let nextLevelAt = null;
+      const currentPoints = Number(user?.points) || 0;
+      let nextLevelAt = null; 
     
-      if (currentPoints.points  < 400) nextLevelAt = 400;
-      else if (currentPoints.points < 1500) nextLevelAt = 1500;
-      else if (currentPoints.points < 3000) nextLevelAt = 3000;
-      else if (currentPoints.points < 5000) nextLevelAt = 5000;
+      if (currentPoints  < 400) nextLevelAt = 400;
+      else if (currentPoints < 1500) nextLevelAt = 1500;
+      else if (currentPoints < 3000) nextLevelAt = 3000;
+      else if (currentPoints < 5000) nextLevelAt = 5000;
       else return 0;
 
       return nextLevelAt - currentPoints;
@@ -45,17 +45,22 @@ const Mentor = ({ mentors }) => {
             '#FFD700' }}>
           </i>
         </h3>
-        {/* TODO: conditionally render badges based on level stauts */} 
           <p className="mentor-points">Points earned: {user.points}</p>
           <p className="mentor-next-level">
-            {pointsToNextLevel() !== null 
+            {pointsToNextLevel() > 0 
             ? `${pointsToNextLevel()} points left to next level` 
             : "You've reached the highest level!"}
           </p>
             <div className="progress-bar-container">
             {/* Calculate percentage: (Current / Goal) * 100 */}
-            <div className="progress-fill" style={{ width: `${(user.points / (user.points + pointsToNextLevel())) * 100}%` }}>
-          </div>
+              <div 
+                className="progress-fill" 
+                style={{ 
+                width: user.points > 0 
+                ? `${(user.points / (user.points + pointsToNextLevel())) * 100}%` 
+                : '5%' 
+              }}
+          ></div>
         </div>
       </div>
 
