@@ -133,7 +133,7 @@ const monthlyData = allTransactions.filter((transactions) =>
             </Card.Body>
         </Card>
 
-            {/* recent activity */}
+        {/* recent activity */}
         <Row className='recent-activity-section justify-content-center'>
             <Col lg={8}>
                 <h2 className='h4 mb-4'>Here are your recent money moves.</h2>
@@ -146,8 +146,8 @@ const monthlyData = allTransactions.filter((transactions) =>
                         <Link to={`/transactions/${transaction._id}`} key={transaction._id} className="transaction-link">
                             <Card className='transaction-line'key={transaction._id}>
                                 <div className='d-flex justify-content-between align-items-center'>
-                                    <span>{transaction.description}:</span>
-
+                                    <span>{transaction.description}:&nbsp;</span>
+                                   
                                     <span className={`transaction-amount ${isIncomeItem ? 'amount-income' : 'amount-expense'}`}>
                                         {symbol}{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(transaction.amount)}
                                     </span>
