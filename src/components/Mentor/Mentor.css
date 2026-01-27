@@ -150,3 +150,9 @@
 .mentor-no-transactions {
   color: #636977;
 }
+.mentor-badge-inline {
+  height: 200px;     /* small, inline with text */
+  width: auto;
+  margin-left: 8px;
+  vertical-align: middle;
+}
