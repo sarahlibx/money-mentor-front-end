@@ -1,0 +1,149 @@
+/* classes for MENTORS PAGE */
+.mentor-container {
+    max-width: 1000px; 
+    margin: 0 auto;    
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.mentor-header {
+  margin: 0 auto 30px auto;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+.mentor-level {
+  margin-bottom: 8px;
+}
+
+.mentor-level-name {
+ border-radius: 30px;
+}
+
+.mentor-points {
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 10px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  margin: 10px 0;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #33AA5E;
+  transition: width 0.5s ease-out;
+}
+
+/* Mentor message (callout) */
+.mentor-message {
+  background-color: #33AA5E;
+  font-size: 1.3rem;
+  padding: 10px;
+  border-radius: 12px;
+  color: #ffffff;
+  line-height: 1.5;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto 40px auto;
+  text-align: center;
+}
+
+/* css animation effect, might change or tweak */
+/* @keyframes border-glow {
+  0% {
+    box-shadow: 0 0 0 0px rgba(51, 170, 94, 0.4);
+    border-color: rgba(51, 170, 94, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 15px 2px rgba(51, 170, 94, 0.7);
+    border-color: rgba(51, 170, 94, 1);
+  }
+  100% {
+    box-shadow: 0 0 0 0px rgba(51, 170, 94, 0);
+    border-color: rgba(51, 170, 94, 0.2);
+  }
+}
+
+.mentor-message:hover {
+    border: 1px solid transparent;
+    transition: border-color 0.3s ease;
+    animation: border-glow 1.2s ease-out;
+} */
+
+/* Transactions section */
+.mentor-transactions-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 15px;
+    gap: 10px;
+    margin: 20px 0;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px auto; 
+    padding: 0;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    width: 100%;           
+    max-width: 600px;     
+    min-width: 300px;
+}
+
+/* Transaction cards */
+.mentor-transaction-card {
+    width: auto;
+    border-radius: 12px;
+    padding: 16px 20px;
+    text-align: left;
+    transition: background 0.2s ease;
+}
+
+.mentor-transaction-card:hover {
+    border: 1px solid #000000;
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+.mentor-transaction-main {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.mentor-amount {
+  color: #33AA5E;
+}
+
+.mentor-type {
+  color: #000000;
+}
+
+/* Meta info */
+.mentor-transaction-meta {
+  font-size: 0.85rem;
+  color: #636977;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mentor-desc {
+  color: #000000;
+  font-weight: 600;
+}
+
+.mentor-no-transactions {
+  color: #636977;
+}

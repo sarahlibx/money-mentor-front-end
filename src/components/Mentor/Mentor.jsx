@@ -1,3 +1,4 @@
+import './Mentor.css';
 import { Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../../contexts/UserContext";
@@ -17,29 +18,45 @@ const Mentor = ({ mentors }) => {
 
   
   const pointsToNextLevel = () =>{
-    //   const currentPoints = user?.points ?? 0;
-    
+      const currentPoints = user?.points || 0;
       let nextLevelAt = null;
     
-      if (user?.points  < 400) nextLevelAt = 400;
-      else if (user?.points < 1500) nextLevelAt = 1500;
-      else if (user?.points < 3000) nextLevelAt = 3000;
-      else if (user?.points < 5000) nextLevelAt = 5000;
+      if (currentPoints.points  < 400) nextLevelAt = 400;
+      else if (currentPoints.points < 1500) nextLevelAt = 1500;
+      else if (currentPoints.points < 3000) nextLevelAt = 3000;
+      else if (currentPoints.points < 5000) nextLevelAt = 5000;
+      else return 0;
 
-      return nextLevelAt !== null ? nextLevelAt - user?.points : null;
+      return nextLevelAt - currentPoints;
   }
 
   return (
     <main className="mentor-container">
       {/* Header */}
       <div className="mentor-header">
-        <h1>Hello,{user.username}</h1>
-        <p className="mentor-level-name">{mentors.levelName}</p>
-        <p className="mentor-level">Level {mentors.level}</p>
-        <p className="mentor-points">Points: {user.points}</p>
-        <p className="mentor-next-level">
-        {`${pointsToNextLevel()} points left to next level`}
-        </p>
+        <h1>Hello, {user.username}</h1>
+        <h2 className="mentor-level">Way to save! You've made it to level {mentors.level}!</h2>
+        <h3 className='mentor-level-name'>You are now a {mentors.levelName}  
+          {''}<i className="bi bi-trophy-fill" style={{ fontSize: '1.5rem', color: 
+            user.points < 0 ? '#50C878' :
+            user.points < 400 ? '#B76E79' :
+            user.points < 1500 ? '#CD7F32' :
+            user.points < 3000 ? '#C0C0C0' :
+            '#FFD700' }}>
+          </i>
+        </h3>
+        {/* TODO: conditionally render badges based on level stauts */} 
+          <p className="mentor-points">Points earned: {user.points}</p>
+          <p className="mentor-next-level">
+            {pointsToNextLevel() !== null 
+            ? `${pointsToNextLevel()} points left to next level` 
+            : "You've reached the highest level!"}
+          </p>
+            <div className="progress-bar-container">
+            {/* Calculate percentage: (Current / Goal) * 100 */}
+            <div className="progress-fill" style={{ width: `${(user.points / (user.points + pointsToNextLevel())) * 100}%` }}>
+          </div>
+        </div>
       </div>
 
       {/* Mentor message */}
@@ -48,11 +65,11 @@ const Mentor = ({ mentors }) => {
       </div>
 
       {/* Transactions */}
-      <section className="mentor-transactions">
+      <section className="mentor-transactions-container">
         <h2 className="mentor-transactions-title">Recent Transactions</h2>
-
-        {mentors.recentTransactions && mentors.recentTransactions.length > 0 ? (
-          mentors.recentTransactions.map((t) => (
+          <div className='mentor-transactions-list'>
+            {mentors.recentTransactions && mentors.recentTransactions.length > 0 ? (
+              mentors.recentTransactions.map((t) => (
             <div key={t._id} className="mentor-transaction-card">
               <div className="mentor-transaction-main">
                 <span
@@ -76,6 +93,7 @@ const Mentor = ({ mentors }) => {
         ) : (
           <p className="mentor-no-transactions">No Transactions</p>
         )}
+        </div>
       </section>
 
       <Link to="/">
