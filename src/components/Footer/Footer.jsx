@@ -7,8 +7,7 @@ const Footer = () => {
         <footer className='footer'>
             <div className='footer-content'>
                 <div className='footer-left'>
-                    <img className='footer-logo' src="src/assets/Money Mentor landing.svg" alt="money-mentor-logo" />
-                    <h4>Money Mentor</h4>
+                    <img className='footer-logo' src="src/assets/Money Mentor footer.svg" alt="money-mentor-logo" />
                     <p>Smart tracking for smarter savings.</p>
                 </div>
             
