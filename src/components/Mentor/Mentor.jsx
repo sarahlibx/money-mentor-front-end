@@ -30,15 +30,16 @@ const Mentor = ({ mentors }) => {
 
   if (!mentors || !user) return <h1>Loading</h1>;
 
-  const pointsToNextLevel = () => {
-    const currentPoints = user?.points || 0;
-    let nextLevelAt = null;
-
-    if (currentPoints.points < 400) nextLevelAt = 400;
-    else if (currentPoints.points < 1500) nextLevelAt = 1500;
-    else if (currentPoints.points < 3000) nextLevelAt = 3000;
-    else if (currentPoints.points < 5000) nextLevelAt = 5000;
-    else return 0;
+  
+  const pointsToNextLevel = () =>{
+      const currentPoints = Number(user?.points) || 0;
+      let nextLevelAt = null; 
+    
+      if (currentPoints  < 400) nextLevelAt = 400;
+      else if (currentPoints < 1500) nextLevelAt = 1500;
+      else if (currentPoints < 3000) nextLevelAt = 3000;
+      else if (currentPoints < 5000) nextLevelAt = 5000;
+      else return 0;
 
     return nextLevelAt - currentPoints;
   };
