@@ -58,7 +58,7 @@ const Landing = () => {
                 <button>Get Started</button>
               </Link>
               <div className='text-muted'>
-                <p>Already have an account? <a className='landing-link' href="/sign-in">Sign in</a></p> 
+                <p>Already have an account? <Link className='landing-link' href="/sign-in">Sign in</Link></p> 
               </div>
             </Stack>
           </div>
@@ -69,7 +69,7 @@ const Landing = () => {
           <img 
             src="src/assets/landing-right.svg" 
             alt="App at a glance view" 
-            className='img-fluid landing-hero-img mb-4 mb-lg-0' 
+            className='landing-hero-img mb-4 mb-lg-0' 
           />
         </Col>
         </Row>
