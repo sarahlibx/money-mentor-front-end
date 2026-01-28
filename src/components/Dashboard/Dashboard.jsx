@@ -1,7 +1,7 @@
 import { Container, Row, Col, Stack, Form, Card } from 'react-bootstrap';
 import './Dashboard.css';
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 // import getRecent for quick summary view of last 5 transactions/current balance
 import * as transactionService from "../../services/transactionService";
@@ -9,6 +9,7 @@ import * as userService from "../../services/userService";
 import { generateMonthOptions } from "../../utils/dateUtils";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
   const currentMonth = new Date().toISOString().slice(0, 7);
   // state
@@ -128,13 +129,18 @@ const monthlyData = allTransactions.filter((transactions) =>
                         const symbol = isIncomeItem ? '+' : '-';
 
                         return (
-                        <Link to={`/transactions/${transaction._id}`} key={transaction._id} className="transaction-link">
+                        <Link 
+                            to={`/transactions/${transaction._id}`} 
+                            key={transaction._id} 
+                            className="transaction-link"
+                            state={{ from: '/' }}
+                            >
                             <Card className='transaction-line'key={transaction._id}>
                                 <div className='d-flex justify-content-between align-items-center'>
                                     <span>{transaction.description}:&nbsp;</span>
                                    
                                     <span className={`transaction-amount ${isIncomeItem ? 'amount-income' : 'amount-expense'}`}>
-                                        {symbol}{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(transaction.amount)}
+                                        {symbol}{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(Math.abs(transaction.amount))}
                                     </span>
                                 </div>
                             </Card>
@@ -147,7 +153,10 @@ const monthlyData = allTransactions.filter((transactions) =>
                     <Link to ='/transactions'>
                         <button type='button'>All Transactions</button>
                     </Link>
-                    <Link to="/transactions/new">
+                    <Link 
+                        to="/transactions/new"
+                        state={{ from: '/' }}
+                        >
                         <button type="button">+ Add Transaction</button>
                     </Link>
                 </Stack>
