@@ -33,11 +33,11 @@ const Landing = () => {
         <Row className='align-items-center g-5'>
 
         {/* left side */}  
-        <Col lg={6} className="landing-left text-center -text-lg-start">
+        <Col lg={6} md={12} className="order-2 order-lg-1 text-center text-lg-start">
           <img 
             src="src/assets/Money Mentor landing.svg" 
             alt="Money Mentor" 
-            className="money-mentor-img"
+            className="money-mentor-img mb-4 mx-auto mx-lg-0"
             style={{ maxWidth: '300px'}} 
           />
           <div className="landing-app-details mb-5">
@@ -65,11 +65,11 @@ const Landing = () => {
         </Col>
 
         {/* RIGHT SIDE */}
-        <Col lg={6} md={12} className="landing-right text-center">
+        <Col lg={6} md={12} className="landing-right order-1 order-lg-2 text-center">
           <img 
-            src="src/assets/landingpageview.svg" 
+            src="src/assets/right.svg" 
             alt="App at a glance view" 
-            className='img-fluid landing-hero-img' 
+            className='img-fluid landing-hero-img mb-4 mb-lg-0' 
           />
         </Col>
         </Row>
