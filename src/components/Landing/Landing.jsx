@@ -69,7 +69,7 @@ const Landing = () => {
           <img 
             src="src/assets/right (1).svg" 
             alt="App at a glance view" 
-            className='img-fluid landing-hero-img mb-4 mb-lg-0' 
+            className='landing-hero-img mb-4 mb-lg-0' 
           />
         </Col>
         </Row>
