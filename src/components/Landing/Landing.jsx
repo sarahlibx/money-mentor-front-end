@@ -58,16 +58,16 @@ const Landing = () => {
                 <button>Get Started</button>
               </Link>
               <div className='text-muted'>
-                <p>Already have an account? <a href="/sign-in">Sign in</a></p> 
+                <p>Already have an account? <a className='landing-link' href="/sign-in">Sign in</a></p> 
               </div>
             </Stack>
           </div>
         </Col>
 
         {/* RIGHT SIDE */}
-        <Col lg={6} md={12} className="landing-right order-1 order-lg-2 text-center">
+        <Col lg={6} md={12} className="order-1 order-lg-2 text-center">
           <img 
-            src="src/assets/right.svg" 
+            src="src/assets/right (1).svg" 
             alt="App at a glance view" 
             className='img-fluid landing-hero-img mb-4 mb-lg-0' 
           />
