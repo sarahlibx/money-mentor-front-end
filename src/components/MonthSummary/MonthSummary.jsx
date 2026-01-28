@@ -1,9 +1,9 @@
-import { Container, Row, Col, Card, Button, Stack, ButtonGroup } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Stack } from 'react-bootstrap';
 import './MonthlySummary.css';
 import { useState, useEffect, useContext} from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { getMonthlySummary } from "../../services/transactionService";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, 
   Tooltip, ResponsiveContainer, Legend 
@@ -18,6 +18,7 @@ const MonthlySummary = () => {
     const [loading, setLoading] = useState(true);
     // handle html loading & the container re: the chart rendering
     const [containerWidth, setContainerWidth] = useState(0);
+    const navigate = useNavigate();
 
     // fetch data
     useEffect(() => {
@@ -102,85 +103,85 @@ const MonthlySummary = () => {
                 </Row>
                 
                 <Card className="monthly-filter-transactions shadow-sm border-0 mb-4">
-                    <Card.Body className="filter-btns p-4">
-                        <Stack>
-                            <ButtonGroup>
-                                <button type='button' onClick={() => setFilter('all')}>All Transactions</button>
-                                <button type='button' onClick={() => setFilter('Income')}>Income</button>
-                                <button type='button' onClick={() => setFilter('Expense')}>Expenses</button>
-                            </ButtonGroup>  
+                    <Card.Body className="d-flex justify-content-between align-items-center px-4 py-4">
+                        <Stack direction='horizontal' gap={3}>
+                            <button type='button' className={`filter-options ${filter === 'all' ? 'active-filter' : ''}`} onClick={() => setFilter('all')}>All Transactions</button>
+                            <button type='button' className={`filter-options ${filter === 'Income' ? 'active-filter' : ''}`} onClick={() => setFilter('Income')}>Income</button>
+                            <button type='button' className={`filter-options ${filter === 'Expense' ? 'active-filter' : ''}`} onClick={() => setFilter('Expense')}>Expenses</button> 
                         </Stack>
-                        <h3 className='month-total text-center mb-0 bw-bold'>Total: ${total.toFixed(2)}</h3>
+                        <h3 className='month-total mb-0 fw-bold'>Net Total: ${total.toFixed(2)}</h3>
                     </Card.Body>
                 </Card>
 
-                <Row className="transactions-list g-4">
-                    <Col lg={8}>
-                    <Card className='shadow-sm border-0 h-100'>
-                        <Card.Header className='bg-white fw-bold'>Recent Transactions</Card.Header>
-                        <Card.Body className='p-0'>
-                            <ul className='list-group list-group-flush'>
-                                {filteredTransactions.map(transaction => {
-                                    const isIncome = transaction.categoryId?.type === 'Income';
-
-                                    return (
-                                    <li key={transaction._id} className="transaction-card list-group-item d-flex justify-content-between align-items-center py-3">
-                                        <div className="transaction-info d-flex align-items-center">
-                                            <div className="transaction-icon fs-3 me-3">
-                                                {isIncome ? '💰' : '💸'}
-                                            </div>
-                                        </div>
-                                        <div className="transaction-details">
-                                        {/* description */}
-                                        <div className="transaction-desc fw-bold">{transaction.description}</div>
-                                        {/* date & category */}
-                                        <div className="transaction-meta"> 
-                                            {new Date(transaction.date).toLocaleDateString()} | {''}
-                                            {transaction.categoryId?.name}
-                                        </div>
-                                        </div>
-                                        {/* amount */}
-                                        <div className={`fw-bold transaction-amount ${isIncome ? 'amount-income' : 'amount-expense'}`}>
-                                            {isIncome ? '+' : '-'}${transaction.amount.toFixed(2)}
-                                        </div>
-                                    </li> 
-                                );
-                            })}
-                        </ul>
-                    </Card.Body>
-                </Card>
-                </Col>
+            <Row className="justify-content-center g-4">
+            {/* TRANSACTION LIST COLUMN */}
+                <Col lg={8} md={10}>
+                    <h2 className='h4 fw-bold mb-4'>Recent Transactions</h2>
+                    <Stack gap={3}>
+                        {filteredTransactions.map(transaction => {
+                        const isIncome = transaction.categoryId?.type === 'Income';
                 
-                {/* chart section */}
-                <section className="transactions-chart">
-                    <h2>{filter === 'all' ? 'Income vs Expenses' : `${filter} Breakdown`}</h2>
-                    <div style={{ width: '100%', height: '350px', marginBottom: '60px'}}>
-                    {/* Only render the chart if mounted and we have data */} 
-                    <ResponsiveContainer width='100%' height='100%' minWidth={0}> 
-                        <BarChart 
-                            data={filter === 'all' ? chartData : dynamicChartData} 
-                            margin={{ top: 20, right: 30, left: 20, bottom: 5}}
-                        >
-                            <CartesianGrid strokeDasharray='3 3' vertical={false} />
-                            <XAxis dataKey='name' />
-                            <YAxis tickFormatter={(value) => `$${value}`} />
-                            <Tooltip 
-                                formatter={(value) => [`$${value.toFixed(2)}`, 'Amount']}
-                                cursor={{ fill: 'transparent' }}
-                            />
-                            <Legend />
-                            <Bar dataKey='amount' radius={[4, 4, 0, 0]} />
-                        </BarChart>
-                    </ResponsiveContainer>
+                        return (
+                            <Card 
+                                key={transaction._id} 
+                                className="shadow-sm border-0 transaction-card clickable-card"
+                                onClick={() => navigate(`/transactions/${transaction._id}`, { state: { from: '/summary' } })}
+                                >
+                                <Card.Body className='d-flex justify-content-between align-items-center py-3 px-4'>
+                                    <div className="transaction-info d-flex align-items-center">
+                                        <div className="transaction-icon fs-3 me-3">
+                                            {isIncome ? '💰' : '💸'}
+                                        </div>
+                                    <div className="transaction-details">
+                                        <div className="transaction-desc fw-bold">{transaction.description}</div>
+                                        <div className="transaction-meta text-muted small"> 
+                                            {new Date(transaction.date).toLocaleDateString()} | {transaction.categoryId?.name}
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div className={`fw-bold fs-5 ${isIncome ? 'amount-income' : 'amount-expense'}`}>
+                                        {isIncome ? '+' : '-'}${Math.abs(transaction.amount).toFixed(2)}
+                                    </div>
+                                </Card.Body>
+                            </Card>
+                        );
+                    })}
+                </Stack>
+            </Col>
+
+            {/* CHART SECTION */}
+            <Col lg={8} md={10}>
+                <Card className="shadow-sm border-0">
+                    <Card.Header className='bg-white fw-bold py-3'>
+                        {filter === 'all' ? 'Income vs Expenses' : `${filter} Breakdown`}
+                    </Card.Header>
+                <Card.Body>
+                    <div style={{ width: '100%', height: '350px' }}>
+                        <ResponsiveContainer width='100%' height='100%'> 
+                            <BarChart 
+                                data={filter === 'all' ? chartData : dynamicChartData} 
+                                margin={{ top: 20, right: 30, left: 20, bottom: 5}}
+                            >
+                                <CartesianGrid strokeDasharray='3 3' vertical={false} />
+                                <XAxis dataKey='name' />
+                                <YAxis tickFormatter={(value) => `$${value}`} />
+                                <Tooltip formatter={(value) => [`$${value.toFixed(2)}`, 'Amount']} />
+                                <Legend />
+                                <Bar dataKey='amount' radius={[4, 4, 0, 0]} fill="#000000" />
+                            </BarChart>
+                        </ResponsiveContainer>
                     </div>
-                </section>
-                <div className='summary-actions'>
-                    <Link to="/">
-                        <button className='back-btn' type='button'>Return to Dashboard</button>
-                    </Link>
-                </div>
-                </Row>
-            </Container>
+                </Card.Body>
+            </Card>
+        </Col>
+    </Row>
+        {/* BUTTONS */}
+        <div className='summary-actions text-center mt-5'>
+            <Link to="/">
+                <button className='back-btn' type='button'>Return to Dashboard</button>
+            </Link>
+        </div>
+        </Container>
         </>
     );
 };
