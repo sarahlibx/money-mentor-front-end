@@ -65,16 +65,6 @@ const Mentor = ({ mentors }) => {
         </Row>
         <Card className="shadow-sm border-0 mb-5">
           <Card.Body className="p-4">
-            {/* <Row className="stats-grid text-center g-4">
-              <Col xs={6} md={6} className="stat-item">
-                <div className="label">Mentor level</div>
-                <div className="value points">{mentors.level}</div>
-              </Col>
-              <Col xs={6} md={6} className="stat-item">
-                <div className="label">Points earned:</div>
-                <div className="value points">{user.points}</div>
-              </Col>
-            </Row> */}
             <Row className="g-4">
               <Col xs={12} md={6}>
                 <div className="border rounded p-4 bg-white shadow-sm text-center h-100">
@@ -86,19 +76,16 @@ const Mentor = ({ mentors }) => {
               <Col xs={12} md={6}>
                 <div className="border rounded p-4 bg-white shadow-sm text-center h-100">
                   <div className="text-muted mb-1">Points earned</div>
-                
                   <div className="fs-1 text-success">{user.points}</div>
                 </div>
               </Col>
             </Row>
           </Card.Body>
         </Card>
-     
         <div className="border rounded p-4 bg-white shadow-sm text-center mb-5">
           <h3 className="mentor-level">
             Way to save! You've made it to level {mentors.level}!
           </h3>
-
           <h2 className="mentor-level-name">
             You are now a {mentors.levelName}
             <p>
@@ -109,7 +96,6 @@ const Mentor = ({ mentors }) => {
               />
             </p>
           </h2>
-
           <p className="mentor-next-level">
             {pointsToNextLevel() > 0
               ? `${pointsToNextLevel()} points left to next level`
