@@ -63,6 +63,7 @@ VITE_API_URL=your_backend_url_here
 npm run dev
 
 The app will run at `http://localhost:5173` by default.
+
 Netlify Deployment [Link](https://money-mentor2.netlify.app/)
 
 ### Backend Repository
