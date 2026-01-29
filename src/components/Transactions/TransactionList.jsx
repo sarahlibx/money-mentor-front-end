@@ -18,12 +18,6 @@ const TransactionList = ({ transactions, categories }) => {
   const location = useLocation();
   const from = location.pathname + location.search;
 
-  // console.log(
-  //   "date sample:",
-  //   transactions[0]?.date,
-  //   typeof transactions[0]?.date
-  // );
-
   const filteredTransactions = transactions.filter((t) =>
     t.date.startsWith(selectedMonth)
   );
