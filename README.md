@@ -39,7 +39,7 @@ Money Mentor helps users track income and expenses, view monthly summaries, and 
 - REST API
 - React Bootstrap [Doc](https://react-bootstrap.netlify.app/)
 - Recharts React Library [Doc](https://recharts.github.io/en-US/examples/SimpleBarChart/)
-- Netlify (frontend deployment) [Deployment](https://money-mentor2.netlify.app/)
+- Netlify (frontend deployment) 
 - Heroku (backend deployment)
 
 ---
@@ -63,6 +63,7 @@ VITE_API_URL=your_backend_url_here
 npm run dev
 
 The app will run at `http://localhost:5173` by default.
+Netlify Deployment [Link](https://money-mentor2.netlify.app/)
 
 ### Backend Repository
 The backend REST API for this project can be found here:  
