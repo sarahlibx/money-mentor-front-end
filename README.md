@@ -39,7 +39,7 @@ Money Mentor helps users track income and expenses, view monthly summaries, and 
 - REST API
 - React Bootstrap [Doc](https://react-bootstrap.netlify.app/)
 - Recharts React Library [Doc](https://recharts.github.io/en-US/examples/SimpleBarChart/)
-- Netlify (frontend deployment)
+- Netlify (frontend deployment) [Deployment](https://money-mentor2.netlify.app/)
 - Heroku (backend deployment)
 
 ---
