@@ -2,16 +2,14 @@
 
 
 ![money-mentor](im.png)
-
+  
+---
 # Frontend
+---
+![money-mentor](ima.png)
+![money-mentor](im32.png)
+![money-mentor](im23.png)
 
-![money-mentor](image.png)
-
-
-![money-mentor](image.png)
-
-
-![money-mentor](image.png)
 
 
 Money Mentor is a react-based CRUD application for tracking personal finances and building better money habits through visibility and motivation.
@@ -45,7 +43,7 @@ Money Mentor helps users track income and expenses, view monthly summaries, and 
 2. Install dependencies
  npm i
  npm install jspdf html2canvas
- 
+
 3. Create a `.env` file and add the backend API URL  
 VITE_API_URL=your_backend_url_here
 4. Start the development server  
