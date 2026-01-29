@@ -11,131 +11,28 @@ body, html {
 
 #root {
   width: 100%; 
+  height: 100%;
   margin: 0;
   padding: 0;
   text-align: center;
-} 
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+footer {
+  flex-shrink: 0;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
-}
-
-/* navbar styling */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 2rem;
-  background-color: #33AA5E;
-  border-bottom: 1px solid;
-  height: 60px;
-}
-
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-}
-
-.nav-links {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  gap: 20px;
-}
-
-.nav-links a, button.signout-btn {
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.nav-logo {
-  height: 40px;
-  width: auto;
-  display: block;
-}
-
-/* classes for landing page */
-.landing-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 40px;
-  padding: 40px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.landing-left {
-  flex: 1;
-}
-
-.money-mentor-img {
-  width: 100%;
-  max-width: 400px;
-  height: auto;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-}
-
-.landing-right {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.landing-hero-img {
-  width: 100%;
-  max-width: 500px;
-  height: auto;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-
-.testimonials-container {
-    width: 80%;
-    max-width: 1000px;
-    margin: 40px auto;
-    overflow: hidden; 
-    position: relative;
-    padding: 10px 0;
-    white-space: nowrap;
-    border-radius: 50px;
-}
-
-.ticker-track {
-    display: flex;
-    width: max-content;
-    white-space: nowrap;
-    animation: marquee 30s linear infinite; 
-}
-
-.review-item {
-    display: inline-block;
-    padding: 0 40px;
-    font-size: 0.9rem;
-    color: #636977;
-    font-style: italic;
-}
-
-/* This creates the infinite movement */
-@keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-}
-
-/* Pause the scroll when a user hovers over a review */
-.testimonials-container:hover .ticker-track {
-    animation-play-state: paused;
-}
-.auth-container{
-  background: rgb(139, 196, 139);
 }
